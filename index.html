@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My personal library 📕</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="welcome">
+        <h1>Welcome to your personal library!</h1>
+    </div>
+
+    <div>
+        <h3>Your books:</h3>
+        <div id="booklist"></div>
+    </div>
+
+    <div class="form">
+        <p>Would you like to add a new book?</p>
+        <button id="newbook" type="button">Click here!</button>
+
+        <dialog id="modal">
+            <p>Give us the details to add it to your list:</p>
+
+            <form id="bookForm">
+                <label for="bookname">Book name:</label><br>
+                <input type="text" id="bookname" name="bookname"><br>
+    
+                <label for="bookauthor">Author:</label><br>
+                <input type="text" id="bookauthor" name="bookauthor"><br>
+    
+                <label for="pagenumber">Number of pages:</label><br>
+                <input type="number" id="pagenumber" name="pagenumber"><br><br>
+                
+                <label for="read">Have you read it yet?</label><br>
+                <input type="radio" id="yes" name="read" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="read" value="No">
+                <label for="no">No</label><br><br>
+
+                <input id="closeDialog" type="button" value="Add this book!" autofocus>
+            </form>
+
+            <p>If you click the button, the book will be added to your book list.</p>
+        </dialog>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
