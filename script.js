@@ -1,28 +1,9 @@
-const myLibrary = [
-    {
-        id: crypto.randomUUID(),
-        book: "A Tale of Two Cities",
-        author: "Charles Dickens",
-        pages: 489,
-        read: true
-    },
-    {
-        id: crypto.randomUUID(),
-        book: "The Da Vinci Code",
-        author: "Dan Brown",
-        pages: 454,
-        read: true
-    },
-    {
-        id: crypto.randomUUID(),
-        book: "The Hobbit",
-        author: "J. R. R. Tolkien",
-        pages: 310,
-        read: false
-    }
-];
-
+// DOM elements
 const booklist = document.getElementById("booklist");
+const newbook = document.getElementById("newbook");
+const form = document.getElementById("bookForm");
+const dialog = document.getElementById("modal");
+const closeButton = document.getElementById("closeDialog");
 
 // the constructor...
 function Book(book, author, pages, read) {
@@ -36,19 +17,42 @@ function Book(book, author, pages, read) {
     this.read = read;
 }
 
+// Prototype read toggle method
+Book.prototype.toggleRead = function () {
+    this.read = !this.read;
+};
+
+// Library initializaton
+const myLibrary = [
+    new Book("A Tale of Two Cities", "Charles Dickens", 489, true),
+    new Book("The Da Vinci Code", "Dan Brown", 454, true),
+    new Book("The Hobbit", "J. R. R. Tolkien", 310, false),
+];
+
+// Books render
 function renderBook(bookData) {
     const book = document.createElement('div');
     book.dataset.id = bookData.id;
 
-    book.innerText =
-        `Title: ${bookData.book}\n` +
-        `Author: ${bookData.author}\n` +
-        `Pages: ${bookData.pages}\n` +
-        `Read: ${bookData.read ? "Yes" : "No"}\n` +
-        `ID: ${bookData.id}`;
+    const title = document.createElement('p');
+    title.textContent = `Title: ${bookData.book}`;
 
+    const author = document.createElement('p');
+    author.textContent = `Author: ${bookData.author}`;
+
+    const pages = document.createElement('p');
+    pages.textContent = `Pages: ${bookData.pages}`;
+
+    const readStatus = document.createElement('p');
+    readStatus.textContent = `Read: ${bookData.read ? "Yes" : "No"}`;
+
+    const id = document.createElement('p');
+    id.textContent = `ID: ${bookData.id}`;
+    id.style.wordBreak = "break-word";
+
+    // Delete button
     const delBtn = document.createElement('button');
-    delBtn.innerText = 'Delete';
+    delBtn.textContent = 'Delete';
 
     delBtn.addEventListener('click', () => {
         book.remove();
@@ -58,8 +62,17 @@ function renderBook(bookData) {
         }
     });
 
-    book.appendChild(document.createElement('br'));
-    book.appendChild(delBtn);
+    // Read toggle button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = bookData.read ? "Mark as unread" : "Mark as read";
+
+    toggleBtn.addEventListener('click', () => {
+        bookData.toggleRead();
+        readStatus.textContent = `Read: ${bookData.read ? "Yes" : "No"}`;
+        toggleBtn.textContent = bookData.read ? "Mark as unread" : "Mark as read";
+    });
+
+    book.append(title, author, pages, readStatus, id, toggleBtn, delBtn);
     booklist.appendChild(book);
 }
 
@@ -80,17 +93,13 @@ function addBookToLibrary() {
     renderBook(newBook);
 }
 
-// Submit button dialog
-const newbook = document.getElementById("newbook");
-const form = document.getElementById("bookForm");
-const dialog = document.getElementById("modal");
-const closeButton = document.getElementById("closeDialog");
-
+// Add book button (opens dialog)
 newbook.addEventListener("click", (event) => {
     event.preventDefault();
     dialog.showModal();
 });
 
+// Dialog form button (closes dialog)
 closeButton.addEventListener("click", () => {
     addBookToLibrary();
     dialog.close();
