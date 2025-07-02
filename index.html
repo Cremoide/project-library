@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My personal library 📕</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div id="welcome" class="header">
@@ -23,7 +24,7 @@
         <dialog id="modal">
             <p>Give us the details to add it to your list:</p>
 
-            <form id="bookForm">
+            <form action="/" method="GET" id="bookForm">
                 <label for="bookname">Book name:</label><br>
                 <input type="text" id="bookname" name="bookname"><br>
     
@@ -39,7 +40,7 @@
                 <input type="radio" id="no" name="read" value="No">
                 <label for="no">No</label><br><br>
 
-                <input id="closeDialog" type="button" value="Add this book!" autofocus>
+                <button id="closeDialog" type="button" value="Add this book!" autofocus>
             </form>
 
             <p>If you click the button, the book will be added to your book list.</p>
@@ -50,6 +51,5 @@
         <small>Trust the process.</small>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>

@@ -85,12 +85,15 @@ function addBookToLibrary() {
 
     if (!bookName || !bookAuthor || isNaN(pageNumber)) {
         alert("Every field is required!");
+        closeButton.preventDefault();
         return;
     }
 
     const newBook = new Book(bookName, bookAuthor, pageNumber, read);
     myLibrary.push(newBook);
     renderBook(newBook);
+    dialog.close();
+    form.reset();
 }
 
 // Add book button (opens dialog)
